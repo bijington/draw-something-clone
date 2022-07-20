@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:DrawSomething.ViewModels"
+    xmlns:controls="clr-namespace:DrawSomething.Controls"
+    x:Class="DrawSomething.Pages.GamePage"
+    x:DataType="viewmodels:GamePageViewModel"
+    BackgroundColor="LightGray"
+    Title="{Binding Subject, StringFormat='You are drawing {0}'}">
+
+    <Grid RowDefinitions="*,10*,*,*">
+
+        <CollectionView
+            x:Name="ColorList"
+            ItemsSource="{Binding AvailableColors}"
+            SelectionMode="Single"
+            ItemsLayout="HorizontalList">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid WidthRequest="48">
+                        <Frame
+                            BackgroundColor="{Binding}"
+                            Margin="0,0,0,10" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <controls:DrawingSurface
+            Grid.Row="1"
+            x:Name="DrawingSurface"
+            BackgroundColor="White"
+            DrawingColor="{Binding SelectedItem, Source={x:Reference ColorList}}"/>
+
+        <HorizontalStackLayout Grid.Row="2">
+
+            <Button
+                ImageSource="undo.png"
+                BackgroundColor="LightGray"
+                Command="{Binding UndoCommand, Source={x:Reference DrawingSurface}}"/>
+
+            <Button
+                ImageSource="clear.png"
+                BackgroundColor="LightGray"
+                Command="{Binding ClearCommand, Source={x:Reference DrawingSurface}}"/>
+
+        </HorizontalStackLayout>
+    </Grid>
+
+</ContentPage>
