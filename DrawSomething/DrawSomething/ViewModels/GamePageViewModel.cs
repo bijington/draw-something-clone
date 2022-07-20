@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace DrawSomething.ViewModels;
+﻿namespace DrawSomething.ViewModels;
 
 public class GamePageViewModel
 {
